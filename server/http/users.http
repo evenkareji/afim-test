@@ -1,0 +1,33 @@
+###ユーザー取得
+GET http://localhost:3005/users/63bb8bc3e897a856a452cee2
+content-type: application/json
+
+{
+
+}
+
+### 更新
+PUT http://localhost:3005/users/63bb8bc3e897a856a452cee2
+content-type: application/json
+
+{
+ "userId":"63bb8bc3e897a856a452cee2",
+ "desc":"自分を信じろ自分を信じろ自分を信じろ自分を信じろ分を信じろ自分自分を信じろ自分を信じろを信じろ"
+}
+
+
+###フォローAPI
+PUT http://localhost:3005/users/63bab921f2674346eb311bd1/follow
+content-type: application/json
+
+{
+  "userId":"63bab9c2f2674346eb311bd3"
+}
+
+###フォロー解除api
+PUT http://localhost:3005/users/63bab921f2674346eb311bd1/unfollow
+content-type: application/json
+
+{
+  "userId":"63bb8bc3e897a856a452cee2"
+}

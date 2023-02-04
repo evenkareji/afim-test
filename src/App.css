@@ -1,0 +1,10 @@
+:root {
+  --body-bg-color: #fafafa;
+  --unfollow-bg-color: rgba(255, 255, 255);
+}
+.unfollow-bg-color {
+  background-color: var(--unfollow-bg-color);
+}
+.bodyBgColor {
+  background-color: var(--body-bg-color);
+}
