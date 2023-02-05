@@ -4,7 +4,7 @@ import { OnFollowBtn } from '../atoms/OnFollowBtn';
 import { UnFollowBtn } from '../atoms/UnFollowBtn';
 import ChatIcon from '@mui/icons-material/Chat';
 import { HeartIcon } from '../atoms/HeartIcon/HeartIcon';
-import { IconButton } from '@mui/material';
+
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Comment } from '../pages/Comment';
@@ -89,7 +89,7 @@ export const Text = ({ post }) => {
 
             {loginUser._id !== post.userId && (
               <div>
-                {loginUser.followings.includes(post.userId) ? (
+                {loginUser.followings?.includes(post.userId) ? (
                   <OnFollowBtn handleUnFollow={handleUnFollow}>
                     フォロー中
                   </OnFollowBtn>
