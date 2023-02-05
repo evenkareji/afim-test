@@ -13,6 +13,38 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// フォローのユーザー情報
+router.get('/followings/:username', async (req, res) => {
+  console.log(req.params.username);
+  try {
+    const currentUser = await User.findById(req.params.username);
+    const followingUsers = await Promise.all(
+      currentUser.followings.map((followingrId) => {
+        return User.find({ _id: followingrId });
+      }),
+    );
+
+    return res.status(200).json(followingUsers);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+// フォロワーのユーザー情報
+router.get('/followers/:username', async (req, res) => {
+  console.log(req.params.username);
+  try {
+    const currentUser = await User.findById(req.params.username);
+    const followUsers = await Promise.all(
+      currentUser.followers.map((followerId) => {
+        return User.find({ _id: followerId });
+      }),
+    );
+
+    return res.status(200).json(followUsers);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
 // ユーザー更新
 router.put('/:id', async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
@@ -73,8 +105,8 @@ router.put('/:id/follow', async (req, res) => {
         await currentUser.updateOne({
           $push: { followings: req.params.id },
         });
-
-        res.status(200).json('フォローできた');
+        const newInfo = await User.findById(req.body.userId);
+        res.status(200).json(newInfo);
       } else {
         return res.status(403).json('既にフォローしてます');
       }
@@ -98,8 +130,9 @@ router.put('/:id/unfollow', async (req, res) => {
       await currentUser.updateOne({
         $pull: { followings: req.params.id },
       });
+      const newInfo = await User.findById(req.body.userId);
 
-      res.status(200).json('フォローを解除しました');
+      res.status(200).json(newInfo);
     }
   } catch (err) {
     res.status(500).json(err);

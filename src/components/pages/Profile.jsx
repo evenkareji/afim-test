@@ -4,27 +4,32 @@ import { ProfileCount } from '../molecules/ProfileCount';
 import { PersonalPost } from '../organisms/PersonalPost';
 import { IconButton } from '@mui/material';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-// import { FooterIcon } from '../templates/FooterIcon';
+import { useLocation, useParams } from 'react-router-dom';
 import { UserIconWithName } from '../molecules/UserIconWithName';
 import { FooterProfile } from '../templates/FooterProfile';
 import { FollowTab } from './FollowTab';
+import { useSelector } from 'react-redux';
 
 export const Profile = () => {
   const [isToPage, setIsToPage] = useState(false);
   const toFollowsPage = () => {
+    if (user.username !== username) return;
     setIsToPage((prev) => !prev);
   };
   const [profileUser, setProfileUser] = useState([]);
   const username = useParams().username;
-  console.log(username, 'username');
+  const location = useLocation();
+  const user = useSelector((state) => state.user.user);
   useEffect(() => {
-    const fetchPost = async () => {
+    const getMyPost = async () => {
       const response = await axios.get(`/users?username=${username}`);
       setProfileUser(response.data);
     };
-    fetchPost();
+    getMyPost();
   }, [username]);
+  useEffect(() => {
+    setIsToPage(false);
+  }, [location]);
 
   return (
     <SProfileBox>

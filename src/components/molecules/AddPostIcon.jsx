@@ -3,7 +3,6 @@ import { Icon } from '../atoms/Icon';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import styled from 'styled-components';
-import { FooterIcon } from '../templates/BaseFooterIcon';
 export const AddPostIcon = ({ toggleAddPost, isIcon, link }) => {
   return (
     <div onClick={toggleAddPost}>

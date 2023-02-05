@@ -1,10 +1,11 @@
 import { SearchUsers } from '../molecules/SearchUsers';
-import { UsersInfo } from '../organisms/UsersInfo';
-export const FollowLists = ({}) => {
+import { FollowingsInfo } from '../organisms/FollowingsInfo';
+
+export const FollowLists = () => {
   return (
     <div>
       <SearchUsers />
-      <UsersInfo />
+      <FollowingsInfo />
     </div>
   );
 };

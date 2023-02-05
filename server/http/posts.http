@@ -11,6 +11,8 @@ content-type: application/json
 GET http://localhost:8000/api/posts/
 content-type: application/json
 
+
+
 ###投稿編集
 PUT http://localhost:3005/posts/63bb98301f4246d4ee643885
 content-type: application/json

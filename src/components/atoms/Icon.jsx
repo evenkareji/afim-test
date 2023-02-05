@@ -25,7 +25,7 @@ const SIconButton = styled(IconButton)`
 `;
 const SLink = styled(Link)`
   text-decoration: none;
-  padding: 0 8px 0 16px;
+  padding: 0 8px 0 8px;
   color: #000;
   @media (min-width: 425px) {
   }

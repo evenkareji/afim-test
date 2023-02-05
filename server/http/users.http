@@ -6,26 +6,33 @@ content-type: application/json
 
 }
 
+###全フォロー
+GET http://localhost:8000/users/time/63bb8bc3e897a856a452cee2
+content-type: application/json
+###全フォロワー
+GET http://localhost:8000/users/timeline/63bb8bc3e897a856a452cee2
+content-type: application/json
+
 ### 更新
 PUT http://localhost:3005/users/63bb8bc3e897a856a452cee2
 content-type: application/json
 
 {
  "userId":"63bb8bc3e897a856a452cee2",
- "desc":"自分を信じろ自分を信じろ自分を信じろ自分を信じろ分を信じろ自分自分を信じろ自分を信じろを信じろ"
+ "desc":""
 }
 
 
 ###フォローAPI
-PUT http://localhost:3005/users/63bab921f2674346eb311bd1/follow
+PUT http://localhost:8000/users/63de45211e06d71cff07bed8/follow
 content-type: application/json
 
 {
-  "userId":"63bab9c2f2674346eb311bd3"
+  "userId":"63bb8bc3e897a856a452cee2"
 }
 
 ###フォロー解除api
-PUT http://localhost:3005/users/63bab921f2674346eb311bd1/unfollow
+PUT http://localhost:8000/users/63de45211e06d71cff07bed8/unfollow
 content-type: application/json
 
 {

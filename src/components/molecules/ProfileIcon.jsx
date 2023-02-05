@@ -3,11 +3,10 @@ import { AuthContext } from '../../state/AuthContext';
 import { Icon } from '../atoms/Icon';
 import styled from 'styled-components';
 import { UserIconImg } from '../atoms/UserIconImg';
-import { AddPost } from '../templates/AddPost/AddPost';
+import { useSelector } from 'react-redux';
 export const ProfileIcon = ({ isIcon, changeIsIcon }) => {
-  console.log(isIcon, 'i');
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.user.user);
   return (
     <Icon link={`/profile/${user.username}`}>
       <SProfileIcon
@@ -29,6 +28,7 @@ const SIconText = styled.small`
 const SProfileIcon = styled(UserIconImg)`
   width: 32px;
   height: 32px;
+  padding-left: 0;
   box-sizing: border-box;
   border: ${({ isIcon }) => (isIcon ? '2px solid #000' : 'none')};
 `;

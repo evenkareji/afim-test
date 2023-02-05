@@ -1,13 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { TextArea } from '../atoms/TextArea';
 import { UserBorder } from '../atoms/UserBorder';
 import { UserIconImg } from '../atoms/UserIconImg';
 
-export const CommentAddForm = ({ src }) => {
+export const CommentAddForm = () => {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+  const user = useSelector((state) => state.user.user);
   return (
     <SUserCommentBorder>
-      <SUserImg src={src} />
+      <SUserImg src={PUBLIC_FOLDER + user.profileImg} />
       <SCommentContainer>
         <STextArea placeholder="コメントを追加..."></STextArea>
       </SCommentContainer>

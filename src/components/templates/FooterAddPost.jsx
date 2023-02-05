@@ -1,6 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../state/AuthContext';
-import { UserIconImg } from '../atoms/UserIconImg';
 import { Home } from '../molecules/Home';
 import { ProfileIcon } from '../molecules/ProfileIcon';
 import { AddPostIcon } from '../molecules/AddPostIcon';

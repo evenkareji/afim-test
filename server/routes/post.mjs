@@ -2,7 +2,6 @@ import express from 'express';
 const router = express.Router();
 import Post from '../models/Post.mjs';
 import User from '../models/User.mjs';
-
 // 投稿
 router.post('/', async (req, res) => {
   try {
@@ -10,6 +9,16 @@ router.post('/', async (req, res) => {
 
     const result = await newPost.save();
     return res.status(200).json(result);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+// 自分の全ての投稿
+router.get('/profile/:username', async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    const posts = await Post.find({ userId: user._id });
+    return res.status(200).json(posts);
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -55,7 +64,7 @@ router.delete('/:id', async (req, res) => {
     res.status(403).json(err);
   }
 });
-// 投稿取得
+// 自分投稿取得
 router.get('/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -90,28 +99,6 @@ router.put('/:id/like', async (req, res) => {
     }
   } catch (err) {
     res.status(500).json(err);
-  }
-});
-
-// タイムライン未完成の投稿を取得
-router.get('/timeline/:userId', async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.params.userId);
-    // User._id ==== Post.userId
-    const userPosts = await Post.find({ userId: currentUser._id });
-    return res.status(200).json(userPosts);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
-// プロフィールタイムラインを取得
-router.get('/profile/:username', async (req, res) => {
-  try {
-    const user = await User.findOne({ username: req.params.username });
-    const posts = await Post.find({ userId: user._id });
-    return res.status(200).json(posts);
-  } catch (err) {
-    return res.status(500).json(err);
   }
 });
 

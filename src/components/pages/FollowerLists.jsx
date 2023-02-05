@@ -1,13 +1,12 @@
 import React from 'react';
 import { SearchUsers } from '../molecules/SearchUsers';
-import { UsersInfo } from '../organisms/UsersInfo';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import styled from 'styled-components';
-export const FollowerLists = ({ followers }) => {
+import { FollowersInfo } from '../organisms/FollowersInfo';
+
+export const FollowerLists = () => {
   return (
     <div>
       <SearchUsers />
-      <UsersInfo followers={followers} />
+      <FollowersInfo />
     </div>
   );
 };

@@ -2,24 +2,16 @@ import { Box, Tab, Tabs, Typography } from '@mui/material';
 import { useState } from 'react';
 import styled from 'styled-components';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { FollowerLists, FollowLists } from './FollowerLists';
+import { FollowerLists } from './FollowerLists';
+import { FollowLists } from './FollowLists';
+
 export const FollowTab = ({ isToPage, toFollowsPage }) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const handleTabChange = (event, newTabIndex) => {
-    console.log(newTabIndex, 'followers');
     setTabIndex(newTabIndex);
   };
-  const follows = {
-    username: 'フォロー覧',
-    profileImg: '',
-    desc: 'I blive my skill',
-  };
-  const followers = {
-    username: 'フォロワー',
 
-    desc: 'I blive my skills',
-  };
   return (
     <SBox isToPage={isToPage}>
       <SArrowBackIosNewIconBox>
@@ -32,8 +24,8 @@ export const FollowTab = ({ isToPage, toFollowsPage }) => {
         </STabs>
       </STabsOutline>
 
-      {/* {tabIndex === 0 && <FollowLists follows={follows} />} */}
-      {tabIndex === 1 && <FollowerLists followers={followers} />}
+      {tabIndex === 0 && <FollowLists />}
+      {tabIndex === 1 && <FollowerLists />}
     </SBox>
   );
 };

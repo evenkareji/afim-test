@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { OnFollowBtn } from '../atoms/OnFollowBtn';
 import { UnFollowBtn } from '../atoms/UnFollowBtn';
@@ -7,25 +7,27 @@ import { HeartIcon } from '../atoms/HeartIcon/HeartIcon';
 import { IconButton } from '@mui/material';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../state/AuthContext';
 import { Comment } from '../pages/Comment';
-
+import { login } from '../../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 export const Text = ({ post }) => {
   const [user, setUser] = useState({});
-
   // user(loginUser)が更新されないからフォローしても変更されない
-  const { user: loginUser, dispatch } = useContext(AuthContext);
 
+  const loginUser = useSelector((state) => state.user.user);
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchUser = async () => {
+    const getUsers = async () => {
       const response = await axios.get(`/users/${post.userId}`);
       setUser(response.data);
     };
-    fetchUser();
+    getUsers();
   }, [post.userId]);
-
+  const [isGood, setIsGood] = useState(post.likes.includes(loginUser._id));
   const handleLike = async () => {
     try {
+      !isGood ? ++post.likes.length : --post.likes.length;
       const response = await axios.put(`/posts/${post._id}/like`, {
         userId: loginUser._id,
       });
@@ -37,44 +39,26 @@ export const Text = ({ post }) => {
   };
   const handleUnFollow = async () => {
     try {
-      setIsFollow(false);
-
-      // フォローはできてるけどstorageに保存できてない;
-      console.log('実行');
       const response = await axios.put(`/users/${post.userId}/unfollow`, {
         userId: loginUser._id,
       });
-      console.log('実行完了');
-      // followCall({ userId: loginUser.userId }, ew);
-      // setIsGood(response.data);
+      dispatch(login(response.data));
     } catch (err) {
       console.log(err);
     }
   };
   const handleFollow = async () => {
     try {
-      // フォローはできてるけどstorageに保存できてない;
-      console.log('実行');
-      setIsFollow(true);
       const response = await axios.put(`/users/${post.userId}/follow`, {
         userId: loginUser._id,
       });
-      console.log('実行完了');
-      // followCall({}, dispatch);
 
-      // setIsGood(response.data);
+      dispatch(login(response.data));
     } catch (err) {
       console.log(err);
     }
   };
-  // HeartActionSave
-  const [isFollow, setIsFollow] = useState();
-  // loginUser.followings.includes(post.userId),
 
-  // );
-
-  // console.log(isFollow, 'isFollow');
-  const [isGood, setIsGood] = useState(post.likes.includes(loginUser._id));
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const modalComment = () => {
     setIsCommentModal((prev) => !prev);
@@ -84,6 +68,7 @@ export const Text = ({ post }) => {
     : PUBLIC_FOLDER + '/person/noAvatar.png';
 
   const [isCommentModal, setIsCommentModal] = useState(false);
+
   return (
     <PostBorder>
       {/* <SImg src={next} alt="" /> */}
@@ -100,15 +85,11 @@ export const Text = ({ post }) => {
             />
           </Link>
           <Box>
-            <SUserName>
-              {/* post.idとuser.idが一致した時投稿したユーザーと判別される */}
-              {user.username}
-            </SUserName>
-            {/* onClick={() => */}
-            {/* onClick={() => setIsFollow(!isFollow)} */}
+            <SUserName>{user.username}</SUserName>
+
             {loginUser._id !== post.userId && (
               <div>
-                {isFollow ? (
+                {loginUser.followings.includes(post.userId) ? (
                   <OnFollowBtn handleUnFollow={handleUnFollow}>
                     フォロー中
                   </OnFollowBtn>
@@ -134,10 +115,10 @@ export const Text = ({ post }) => {
           <HeartIcon isGood={isGood} />
         </div>
         <HeartCount>{post.likes.length}</HeartCount>
-        <IconButton onClick={modalComment}>
+        {/* <IconButton onClick={modalComment}>
           <Chat sx={{ fontSize: 30 }} />
         </IconButton>
-        <ChatCount>{post.comment}</ChatCount>
+        <ChatCount>{post.comment}</ChatCount> */}
       </SAside>
       <Comment
         isCommentModal={isCommentModal}
@@ -156,7 +137,7 @@ const SPostContent = styled.div`
 `;
 const SPostHeader = styled.header`
   display: flex;
-  align-items: center;
+  align-items: start;
 `;
 
 const SDescContainer = styled.div`
@@ -170,7 +151,8 @@ const SPostArticle = styled.p`
   font-size: 24px;
   color: #000;
   font-family: 'Helvetica';
-  line-height: 2.4em;
+  font-weight: normal;
+  line-height: 1.5em;
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
 `;
 const Box = styled.div`

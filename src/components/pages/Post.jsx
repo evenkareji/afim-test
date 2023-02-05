@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { Text } from '../organisms/Text';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FooterHome } from '../templates/FooterHome';
-import { AuthContext } from '../../state/AuthContext';
-import { logoutCall } from '../../actionCalls';
+
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Comment } from './Comment';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/userSlice';
 export const Post = () => {
+  const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPost = async () => {
@@ -22,10 +23,10 @@ export const Post = () => {
     };
     fetchPost();
   }, []);
-  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
   const logoutEvent = async () => {
     try {
-      logoutCall(dispatch);
+      dispatch(logout());
     } catch (err) {
       console.log(err);
     }

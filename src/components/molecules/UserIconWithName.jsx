@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { UserIconImg } from '../atoms/UserIconImg';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import axios from 'axios';
+
 export const UserIconWithName = ({ profileUser }) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [file, setFile] = useState(null);

@@ -6,11 +6,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { AuthContext } from '../../state/AuthContext';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 export const Card = ({ post }) => {
   const [user, setUser] = useState({});
   const username = useParams().username;
-  console.log(username, 'できる');
-  const { user: loginUser, dispatch } = useContext(AuthContext);
+  // const { user: loginUser, dispatch } = useContext(AuthContext);
+  const loginUser = useSelector((state) => state.user.user);
+
   useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get(`/users?userId=${post.userId}`);
@@ -53,7 +55,7 @@ const SCard = styled.div`
   height: 250px;
 `;
 const SProfileText = styled.div`
-  font-family: 'Hannari';
+  font-family: 'Helvetica';
   margin: 0 auto;
   font-size: 20px;
   width: 80%;

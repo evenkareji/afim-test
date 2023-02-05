@@ -4,7 +4,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import styled from 'styled-components';
 export const Home = ({ isIcon, changeIsIcon }) => {
-  console.log(isIcon, 'i');
   return (
     <Icon link={'/'}>
       {isIcon ? (

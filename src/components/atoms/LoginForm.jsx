@@ -4,7 +4,6 @@ export const LoginForm = styled.input`
   height: 40px;
   width: 100%;
   max-width: 400px;
-
   border: 1px solid #d9d9d9;
   border-radius: 14px;
   transition: transform 0.4s;
@@ -12,14 +11,17 @@ export const LoginForm = styled.input`
   &:focus {
     transition: transform 4s;
 
-    outline: #fd0707 auto 1px;
+    outline: #ed6103 auto 1px;
+
     &::placeholder {
       transition: transform 0.2s;
-      color: #fd0707;
+      color: #ed6103;
       font-size: 8px;
-      /* transform: translateY(-100%); */
       transform-origin: top;
       transform: translateY(-100%);
     }
+  }
+  &:invalid {
+    outline: #ed0303 auto 2px;
   }
 `;

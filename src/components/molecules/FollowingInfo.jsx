@@ -1,17 +1,30 @@
 import React from 'react';
+
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { OnFollowBtn } from '../atoms/OnFollowBtn';
 import { UserIconImg } from '../atoms/UserIconImg';
-// import insta from '../../images/next.png';
-export const UserInfo = ({ followers }) => {
+export const FollowingInfo = ({ following }) => {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
   return (
-    <UserBorder>
-      <SFollowImg />
+    <UserBorder key={following[0]._id}>
+      <Link
+        to={{ pathname: `/profile/${following[0].username}`, state: false }}
+      >
+        <SFollowImg
+          src={
+            following[0].profileImg
+              ? PUBLIC_FOLDER + following[0].profileImg
+              : PUBLIC_FOLDER + '/person/noAvatar.png'
+          }
+        />
+      </Link>
       <SFollowContainer>
-        <SFollowName>{followers.username}</SFollowName>
-        <SFollowDesc>{followers.desc}</SFollowDesc>
+        <SFollowName>{following[0].username}</SFollowName>
+        <SFollowDesc></SFollowDesc>
       </SFollowContainer>
-      <SOnFollowButton>フォロー</SOnFollowButton>
+      <SOnFollowButton>押せません</SOnFollowButton>
     </UserBorder>
   );
 };

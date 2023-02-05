@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import { CommentAddForm } from '../molecules/CommentAddForm';
-export const Comment = ({ isCommentModal, modalComment, src }) => {
+export const Comment = ({ isCommentModal, modalComment }) => {
   return (
     <SBox isCommentModal={isCommentModal}>
       <SHeader>
         <STitle>コメント</STitle>
         <CloseIcon onClick={modalComment} />
       </SHeader>
-      <CommentAddForm src={src} />
+      <CommentAddForm />
     </SBox>
   );
 };
@@ -24,14 +24,12 @@ const SHeader = styled.header`
   margin: 0 auto;
 `;
 const SBox = styled.div`
-  padding-top: 22px;
   position: absolute;
+  padding-top: 22px;
   color: #000;
-
   left: 0px;
   bottom: 0px;
   right: 0px;
-
   height: 80%;
   border: 1px solid #000;
   background-color: rgb(255, 255, 255);

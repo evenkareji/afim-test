@@ -1,45 +1,57 @@
 import styled from 'styled-components';
 import { Link, Route, Routes } from 'react-router-dom';
 import { LoginForm } from '../atoms/LoginForm';
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { loginCall } from '../../actionCalls';
 import { AuthContext } from '../../state/AuthContext';
 import { Hr } from '../atoms/Hr';
-
+import { ErrorMessage } from '../atoms/ErrorMessage';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../../features/userSlice';
 export const Login = () => {
+  const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
-  const { user, isFetching, error, dispatch } = useContext(AuthContext);
-  const handleSubmit = (e) => {
+  const [isError, setIsError] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    loginCall(
-      {
-        email: email.current.value,
-        password: password.current.value,
-      },
-      dispatch,
-    );
+
+    const response = await axios.post('auth/login', {
+      email: email.current.value,
+      password: password.current.value,
+    });
+    dispatch(login(response.data));
+
+    setIsError(true);
   };
 
   return (
     <SLoginBack>
       <SLoginBorder>
         <SForm onSubmit={(e) => handleSubmit(e)}>
-          <SFormHead>Fields</SFormHead>
+          <SFormHead>AFim</SFormHead>
           <SEmail
             ref={email}
             email="email"
             placeholder="メールアドレス"
-            required
+            autoFocus
           />
           <SPassword
             ref={password}
             type="password"
             placeholder="パスワード"
-            required
             minLength="6"
           />
-
+          {isError ? (
+            <SErrorMessage style={{ opacity: '1' }}>
+              メールアドレスかパスワードが間違っています
+            </SErrorMessage>
+          ) : (
+            <SErrorMessage style={{ opacity: '0' }}>
+              メールアドレスかパスワードが間違っています
+            </SErrorMessage>
+          )}
           <SSubmit type="submit">ログイン</SSubmit>
 
           <SHr />
@@ -54,7 +66,10 @@ export const Login = () => {
     </SLoginBack>
   );
 };
-
+const SErrorMessage = styled(ErrorMessage)`
+  color: red;
+  margin-bottom: 38px;
+`;
 const SLoginBack = styled.div`
   background-color: #d9d9d9;
   height: 100vh;
@@ -64,20 +79,29 @@ const SLoginBack = styled.div`
   align-items: center;
 `;
 const SLoginBorder = styled.div`
-  width: 60%;
-  min-width: 394px;
-  max-width: 640px;
+  width: 100%;
+  height: 100vh;
+  border-radius: 0px;
+
   background-color: #fff;
-  height: 80vh;
-  border-radius: 16px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 432px) {
+    width: 60%;
+    min-width: 394px;
+    max-width: 640px;
+
+    height: 80vh;
+    border-radius: 16px;
+  }
 `;
 const SForm = styled.form`
   width: 85%;
-  height: 50vh;
+  height: 60vh;
   max-width: 400px;
   margin: 0 auto;
   padding: 40px 0px;
@@ -91,9 +115,7 @@ const SEmail = styled(LoginForm)`
   margin-bottom: 14px;
 `;
 
-const SPassword = styled(LoginForm)`
-  margin-bottom: 38px;
-`;
+const SPassword = styled(LoginForm)``;
 
 const SSubmit = styled.button`
   text-decoration: none;

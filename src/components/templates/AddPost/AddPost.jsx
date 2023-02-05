@@ -1,15 +1,14 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { AuthContext } from '../../../state/AuthContext';
 import { TextArea } from '../../atoms/TextArea';
 import { UserIconImg } from '../../atoms/UserIconImg';
 
 import axios from 'axios';
 import { FooterAddPost } from '../FooterAddPost';
-// import { FooterAddPost } from '../FooterAddPost';
+import { useSelector } from 'react-redux';
 
 export const AddPost = () => {
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.user.user);
   const desc = useRef();
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [isText, setIsText] = useState(false);
@@ -93,7 +92,7 @@ export const AddPost = () => {
     <Scenter>
       <SLabel htmlFor="textForm">
         <SForm method="post">
-          <UserIconImg src={PUBLIC_FOLDER + user.profileImg} />
+          <SUserIconImg src={PUBLIC_FOLDER + user.profileImg} />
 
           <TextArea
             placeholder="30文字以内で入力してください"
@@ -122,6 +121,7 @@ export const AddPost = () => {
     </Scenter>
   );
 };
+const SUserIconImg = styled(UserIconImg)``;
 const SLabel = styled.label`
   display: block;
   max-width: 500px;
