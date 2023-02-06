@@ -30,6 +30,7 @@ export const Login = () => {
     <SLoginBack>
       <SLoginBorder>
         <SForm onSubmit={(e) => handleSubmit(e)}>
+          <p>卒業展,進級展について語ろう</p>
           <SFormHead>AFim</SFormHead>
           <SEmail
             ref={email}
