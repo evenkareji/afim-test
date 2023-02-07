@@ -107,13 +107,13 @@ export const Text = ({ post }) => {
         </SDescContainer>
       </SPostContent>
       <SAside>
-        <div
+        <SHeartBox
           onClick={() => {
             handleLike();
           }}
         >
           <HeartIcon isGood={isGood} />
-        </div>
+        </SHeartBox>
         <HeartCount>{post.likes.length}</HeartCount>
         {/* <IconButton onClick={modalComment}>
           <Chat sx={{ fontSize: 30 }} />
@@ -128,6 +128,9 @@ export const Text = ({ post }) => {
     </PostBorder>
   );
 };
+const SHeartBox = styled.div`
+  cursor: pointer;
+`;
 const SPostContent = styled.div`
   position: absolute;
   top: 25%;
@@ -150,7 +153,7 @@ const SDescContainer = styled.div`
 const SPostArticle = styled.p`
   font-size: 24px;
   color: #000;
-  font-family: 'Helvetica';
+
   font-weight: normal;
   line-height: 1.5em;
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);

@@ -15,7 +15,6 @@ router.get('/:id', async (req, res) => {
 
 // フォローのユーザー情報
 router.get('/followings/:username', async (req, res) => {
-  console.log(req.params.username);
   try {
     const currentUser = await User.findById(req.params.username);
     const followingUsers = await Promise.all(
@@ -31,7 +30,6 @@ router.get('/followings/:username', async (req, res) => {
 });
 // フォロワーのユーザー情報
 router.get('/followers/:username', async (req, res) => {
-  console.log(req.params.username);
   try {
     const currentUser = await User.findById(req.params.username);
     const followUsers = await Promise.all(
@@ -48,7 +46,6 @@ router.get('/followers/:username', async (req, res) => {
 // ユーザー更新
 router.put('/:id', async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
-    console.log('server');
     try {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,

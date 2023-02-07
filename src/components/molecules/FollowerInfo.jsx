@@ -22,7 +22,7 @@ export const FollowerInfo = ({ follower }) => {
         <SFollowName>{follower[0].username}</SFollowName>
         <SFollowDesc></SFollowDesc>
       </SFollowContainer>
-      <SOnFollowButton>押せません</SOnFollowButton>
+      {/* <SOnFollowButton>押せません</SOnFollowButton> */}
     </UserBorder>
   );
 };

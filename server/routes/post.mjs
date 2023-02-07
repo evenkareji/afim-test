@@ -56,9 +56,9 @@ router.delete('/:id', async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (post.userId === req.body.userId) {
       await post.deleteOne();
-      res.status(200).json('the post has been deleted');
+      res.status(200).json('投稿を削除しました');
     } else {
-      res.status(403).json('you can delete only your post');
+      res.status(403).json('投稿を削除できません');
     }
   } catch (err) {
     res.status(403).json(err);
@@ -85,7 +85,7 @@ router.put('/:id/like', async (req, res) => {
         $push: { likes: req.body.userId },
       });
       isLike = true;
-      console.log(isLike);
+
       return res.status(200).json(isLike);
     } else {
       await post.updateOne({
@@ -94,7 +94,7 @@ router.put('/:id/like', async (req, res) => {
         },
       });
       isLike = false;
-      console.log(isLike);
+
       return res.status(200).json(isLike);
     }
   } catch (err) {

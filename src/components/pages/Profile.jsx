@@ -30,7 +30,7 @@ export const Profile = () => {
   useEffect(() => {
     setIsToPage(false);
   }, [location]);
-
+  let isPointer = user.username === username;
   return (
     <SProfileBox>
       <SFollowTab
@@ -41,7 +41,7 @@ export const Profile = () => {
       <SProfileInfo>
         {/* icon */}
         <UserIconWithName profileUser={profileUser} />
-        <SProfileFlex>
+        <SProfileFlex isPointer={isPointer}>
           {/* <ProfileCount name="投稿" count="999" /> */}
           <ProfileCount
             toFollowsPage={toFollowsPage}
@@ -114,6 +114,7 @@ const SProfileFlex = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  cursor: ${({ isPointer }) => (isPointer ? 'pointer' : 'not-allowed')};
 `;
 const SProfileInfo = styled.div`
   width: 100%;

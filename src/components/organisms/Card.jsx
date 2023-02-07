@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import CloseIcon from '@mui/icons-material/Close';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { AuthContext } from '../../state/AuthContext';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 export const Card = ({ post }) => {

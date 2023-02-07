@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Home } from '../molecules/Home';
 import { ProfileIcon } from '../molecules/ProfileIcon';
 import { AddPostIcon } from '../molecules/AddPostIcon';
@@ -10,7 +10,9 @@ export const FooterHome = () => {
   return (
     <SFooter>
       {/* ホーム */}
+
       <Home isIcon={isHomeIcon} />
+
       {/* addpost */}
       <AddPostIcon link={'/addpost'} />
       {/* プロフィール */}
@@ -18,7 +20,9 @@ export const FooterHome = () => {
     </SFooter>
   );
 };
-
+const Sdiv = styled.div`
+  display: inline-block;
+`;
 const SFooter = styled.footer`
   border-top: 1px solid #dbdbdb;
   position: fixed;

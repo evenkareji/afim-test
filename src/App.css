@@ -8,3 +8,7 @@
 .bodyBgColor {
   background-color: var(--body-bg-color);
 }
+body {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Hiragino Sans',
+    'Hiragino Kaku Gothic ProN', 'Arial', 'Yu Gothic', 'Meiryo', sans-serif;
+}

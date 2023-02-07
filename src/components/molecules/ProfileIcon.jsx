@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../state/AuthContext';
+import React, { useState } from 'react';
+
 import { Icon } from '../atoms/Icon';
 import styled from 'styled-components';
 import { UserIconImg } from '../atoms/UserIconImg';

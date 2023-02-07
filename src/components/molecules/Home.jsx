@@ -15,6 +15,7 @@ export const Home = ({ isIcon, changeIsIcon }) => {
     </Icon>
   );
 };
+
 const SIconText = styled.small`
   font-weight: ${({ isIcon }) => (isIcon ? '800' : 'normal')};
 `;

@@ -41,14 +41,20 @@ export const Register = () => {
           <SArrowBackIosNewIconBox to={'/login'}>
             <SArrowBackIosNewIcon />
           </SArrowBackIosNewIconBox>
-          <SHead>アカウント登録</SHead>
+          <SHead>
+            新規登録<Sp>本物のメールアドレスは入力しないでください</Sp>
+          </SHead>
           <SName
             type="text"
             placeholder="ユーザー名"
             ref={username}
             autoFocus
           />
-          <SEmail type="email" placeholder="メールアドレス" ref={email} />
+          <SEmail
+            type="email"
+            placeholder="メールアドレス *本物のメールアドレスは入力しないでください"
+            ref={email}
+          />
           <SPassword type="password" placeholder="パスワード" ref={password} />
           <SPasswordConfirmation
             placeholder="確認用パスワード"
@@ -73,18 +79,23 @@ export const Register = () => {
     </SLoginBack>
   );
 };
+const Sp = styled.p`
+  color: red;
+  font-size: 15px;
+`;
 const SArrowBackIosNewIconBox = styled(Link)`
-  display: block;
-  color: #838181 !important;
-  /* width: 64%; */
-  margin: 0 auto;
-  /* max-width: 680px; */
+  display: inline-block;
+
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 80px;
 `;
 const SArrowBackIosNewIcon = styled(ArrowBackIosNewIcon)`
   width: 92%;
   max-width: 680px;
   margin: 0 auto 20px;
-  color: #514e4e;
+  color: #9a9696;
 `;
 const SErrorMessage = styled(ErrorMessage)`
   color: red;
@@ -115,7 +126,7 @@ const SLoginBorder = styled.div`
     min-width: 394px;
     max-width: 640px;
 
-    height: 80vh;
+    height: 90vh;
     border-radius: 16px;
   }
 `;

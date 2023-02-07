@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { TextArea } from '../../atoms/TextArea';
 import { UserIconImg } from '../../atoms/UserIconImg';
@@ -12,6 +12,7 @@ export const AddPost = () => {
   const desc = useRef();
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [isText, setIsText] = useState(false);
+
   // const [file, setFile] = useState(null);
 
   // const handleSubmit = async (e) => {
@@ -45,7 +46,7 @@ export const AddPost = () => {
   //   }
   // };
 
-  const handleSubmit = async (e) => {
+  const textUpload = async (e) => {
     e.preventDefault();
     console.log('出力');
     const newPost = {
@@ -78,10 +79,13 @@ export const AddPost = () => {
     }
   };
 
-  const TextLimit = (e) => {
-    if (e.target.value.length === 0) {
+  const textLimit = (e) => {
+    const minText = 0;
+    const maxText = 50;
+
+    if (e.target.value.trim().length === minText) {
       setIsText(false);
-    } else if (30 < e.target.value.length) {
+    } else if (maxText < e.target.value.length) {
       setIsText(false);
     } else {
       setIsText(true);
@@ -92,12 +96,18 @@ export const AddPost = () => {
     <Scenter>
       <SLabel htmlFor="textForm">
         <SForm method="post">
-          <SUserIconImg src={PUBLIC_FOLDER + user.profileImg} />
+          <SUserIconImg
+            src={
+              user.profileImg
+                ? PUBLIC_FOLDER + user.profileImg
+                : PUBLIC_FOLDER + '/person/noAvatar.png'
+            }
+          />
 
           <TextArea
-            placeholder="30文字以内で入力してください"
+            placeholder="50文字以内で入力してください"
             ref={desc}
-            onChange={(e) => TextLimit(e)}
+            onChange={(e) => textLimit(e)}
             id="textForm"
           ></TextArea>
           {/* <input
@@ -108,11 +118,7 @@ export const AddPost = () => {
           onChange={(e) => setFile(e.target.files[0])}
         /> */}
           <SHr />
-          <SSubmit
-            isText={isText}
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-          >
+          <SSubmit isText={isText} type="submit" onClick={(e) => textUpload(e)}>
             送信
           </SSubmit>
         </SForm>
@@ -148,6 +154,13 @@ const Scenter = styled.div`
 `;
 const SSubmit = styled.div`
   width: 125px;
+  @media (max-width: 425px) {
+    & {
+      width: 100px;
+      font-size: 12px;
+    }
+  }
+
   text-align: center;
   font-size: 14px;
   font-weight: bold;

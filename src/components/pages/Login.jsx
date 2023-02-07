@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { Link, Route, Routes } from 'react-router-dom';
 import { LoginForm } from '../atoms/LoginForm';
-import { useContext, useRef, useState } from 'react';
-import { loginCall } from '../../actionCalls';
-import { AuthContext } from '../../state/AuthContext';
+import { useRef, useState } from 'react';
+
 import { Hr } from '../atoms/Hr';
 import { ErrorMessage } from '../atoms/ErrorMessage';
 import axios from 'axios';
@@ -15,23 +14,26 @@ export const Login = () => {
   const password = useRef();
   const [isError, setIsError] = useState(false);
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const response = await axios.post('auth/login', {
-      email: email.current.value,
-      password: password.current.value,
-    });
-    dispatch(login(response.data));
-
-    setIsError(true);
+      const response = await axios.post('auth/login', {
+        email: email.current.value,
+        password: password.current.value,
+      });
+      dispatch(login(response.data));
+    } catch {
+      setIsError(true);
+    }
   };
 
   return (
     <SLoginBack>
       <SLoginBorder>
         <SForm onSubmit={(e) => handleSubmit(e)}>
-          <p>卒業展,進級展について語ろう</p>
+          <h4>進級展について感想を書き込もうぜい</h4>
           <SFormHead>AFim</SFormHead>
+
           <SEmail
             ref={email}
             email="email"
@@ -67,6 +69,7 @@ export const Login = () => {
     </SLoginBack>
   );
 };
+
 const SErrorMessage = styled(ErrorMessage)`
   color: red;
   margin-bottom: 38px;
@@ -83,7 +86,7 @@ const SLoginBorder = styled.div`
   width: 100%;
   height: 100vh;
   border-radius: 0px;
-
+  position: relative;
   background-color: #fff;
 
   display: flex;

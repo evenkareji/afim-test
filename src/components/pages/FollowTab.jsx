@@ -42,13 +42,12 @@ const SArrowBackIosNewIcon = styled(ArrowBackIosNewIcon)`
 `;
 const SBox = styled.div`
   padding-top: 22px;
-  position: fixed;
+  position: absolute;
   top: 0px;
   left: 0px;
   bottom: 0px;
   right: 0px;
   z-index: 100000;
-
   background-color: #fff;
   transition: transform 0.3s;
   transform: ${({ isToPage }) => (isToPage ? 'none' : 'translateX(100%)')};
