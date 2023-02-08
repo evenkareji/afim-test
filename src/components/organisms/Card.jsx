@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 export const Card = ({ post }) => {
   const [user, setUser] = useState({});
   const username = useParams().username;
-  // const { user: loginUser, dispatch } = useContext(AuthContext);
   const loginUser = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ export const Card = ({ post }) => {
   const postDelete = async () => {
     try {
       if (window.confirm('本当に削除しますか')) {
-        const response = await axios.delete(`/posts/${post._id}`, {
+        await axios.delete(`/posts/${post._id}`, {
           data: { userId: loginUser._id },
         });
         window.location.reload();

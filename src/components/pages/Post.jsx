@@ -7,14 +7,16 @@ import { FooterHome } from '../templates/FooterHome';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/userSlice';
+import { Spinner } from '../atoms/Spinner';
 export const Post = () => {
   const dispatch = useDispatch();
+
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     const fetchPost = async () => {
       const response = await axios.get('/posts');
 
-      // setPosts(response.data);
       setPosts(
         response.data.sort((post1, post2) => {
           return new Date(post2.createdAt) - new Date(post1.createdAt);
@@ -37,6 +39,7 @@ export const Post = () => {
       <SLogoutButton onClick={logoutEvent}>
         <LogoutIcon style={{ fontSize: '14px' }} />
       </SLogoutButton>
+
       <PostBg>
         <PostSlide>
           {posts.map((post) => (
@@ -66,7 +69,7 @@ const SPostMain = styled.div`
 `;
 const PostBg = styled.div`
   color: white;
-  background-color: black;
+  background-color: #000;
   height: 100vh;
   display: grid;
   place-items: center;

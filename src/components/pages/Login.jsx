@@ -8,68 +8,86 @@ import { ErrorMessage } from '../atoms/ErrorMessage';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../../features/userSlice';
+
+import { Spinner } from '../atoms/Spinner';
 export const Login = () => {
   const dispatch = useDispatch();
   const email = useRef();
   const password = useRef();
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-
+      setIsLoading(true);
       const response = await axios.post('auth/login', {
         email: email.current.value,
         password: password.current.value,
       });
       dispatch(login(response.data));
+      setIsLoading(false);
     } catch {
       setIsError(true);
+      setIsLoading(false);
     }
   };
 
   return (
-    <SLoginBack>
-      <SLoginBorder>
-        <SForm onSubmit={(e) => handleSubmit(e)}>
-          <h4>進級展について感想を書き込もうぜい</h4>
-          <SFormHead>AFim</SFormHead>
+    <>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <SLoginBack>
+          <SLoginBorder>
+            <SForm onSubmit={(e) => handleSubmit(e)}>
+              <h4>進級展について感想を書き込もうぜい</h4>
+              <SFormHead>AFim</SFormHead>
 
-          <SEmail
-            ref={email}
-            email="email"
-            placeholder="メールアドレス"
-            autoFocus
-          />
-          <SPassword
-            ref={password}
-            type="password"
-            placeholder="パスワード"
-            minLength="6"
-          />
-          {isError ? (
-            <SErrorMessage style={{ opacity: '1' }}>
-              メールアドレスかパスワードが間違っています
-            </SErrorMessage>
-          ) : (
-            <SErrorMessage style={{ opacity: '0' }}>
-              メールアドレスかパスワードが間違っています
-            </SErrorMessage>
-          )}
-          <SSubmit type="submit">ログイン</SSubmit>
+              <SEmail
+                ref={email}
+                email="email"
+                placeholder="メールアドレス"
+                autoFocus
+              />
+              <SPassword
+                ref={password}
+                type="password"
+                placeholder="パスワード"
+              />
+              {isError ? (
+                <SErrorMessage style={{ opacity: '1' }}>
+                  メールアドレスかパスワードが間違っています
+                </SErrorMessage>
+              ) : (
+                <SErrorMessage style={{ opacity: '0' }}>
+                  メールアドレスかパスワードが間違っています
+                </SErrorMessage>
+              )}
+              <SSubmit type="submit">ログイン</SSubmit>
 
-          <SHr />
-          <STextFlex>
-            <p>アカウントをお持ちでないですか?</p>
-            <Link to="/register" style={{ textDecoration: 'none' }}>
-              登録する
-            </Link>
-          </STextFlex>
-        </SForm>
-      </SLoginBorder>
-    </SLoginBack>
+              <SHr />
+              <STextFlex>
+                <SAcountQuestion>
+                  アカウントをお持ちでないですか?
+                </SAcountQuestion>
+                <Link to="/register" style={{ textDecoration: 'none' }}>
+                  登録する
+                </Link>
+              </STextFlex>
+            </SForm>
+          </SLoginBorder>
+        </SLoginBack>
+      )}
+    </>
   );
 };
 
+const SAcountQuestion = styled.p`
+  @media (max-width: 432px) {
+    font-size: 14px;
+  }
+  font-size: 16px;
+`;
 const SErrorMessage = styled(ErrorMessage)`
   color: red;
   margin-bottom: 38px;
@@ -85,6 +103,13 @@ const SLoginBack = styled.div`
 const SLoginBorder = styled.div`
   width: 100%;
   height: 100vh;
+  height: -webkit-fill-available;
+  @supports (-webkit-touch-callout: none) {
+    & {
+      /* The hack for Safari */
+      height: -webkit-fill-available;
+    }
+  }
   border-radius: 0px;
   position: relative;
   background-color: #fff;

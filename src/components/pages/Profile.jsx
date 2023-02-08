@@ -9,6 +9,7 @@ import { UserIconWithName } from '../molecules/UserIconWithName';
 import { FooterProfile } from '../templates/FooterProfile';
 import { FollowTab } from './FollowTab';
 import { useSelector } from 'react-redux';
+import { Spinner } from '../atoms/Spinner';
 
 export const Profile = () => {
   const [isToPage, setIsToPage] = useState(false);
@@ -19,13 +20,16 @@ export const Profile = () => {
   const [profileUser, setProfileUser] = useState([]);
   const username = useParams().username;
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user.user);
   useEffect(() => {
+    setIsLoading(true);
     const getMyPost = async () => {
       const response = await axios.get(`/users?username=${username}`);
       setProfileUser(response.data);
     };
     getMyPost();
+    setIsLoading(false);
   }, [username]);
   useEffect(() => {
     setIsToPage(false);

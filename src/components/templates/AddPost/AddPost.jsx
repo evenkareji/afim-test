@@ -6,13 +6,14 @@ import { UserIconImg } from '../../atoms/UserIconImg';
 import axios from 'axios';
 import { FooterAddPost } from '../FooterAddPost';
 import { useSelector } from 'react-redux';
+import { Spinner } from '../../atoms/Spinner';
 
 export const AddPost = () => {
   const user = useSelector((state) => state.user.user);
   const desc = useRef();
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [isText, setIsText] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   // const [file, setFile] = useState(null);
 
   // const handleSubmit = async (e) => {
@@ -48,12 +49,11 @@ export const AddPost = () => {
 
   const textUpload = async (e) => {
     e.preventDefault();
-    console.log('出力');
+    setIsLoading(true);
     const newPost = {
       userId: user._id,
       desc: desc.current.value,
     };
-    console.log('出力2');
 
     // if (file) {
     //   const data = new FormData();
@@ -76,6 +76,7 @@ export const AddPost = () => {
       desc.current.value = '';
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
 
@@ -93,38 +94,48 @@ export const AddPost = () => {
   };
 
   return (
-    <Scenter>
-      <SLabel htmlFor="textForm">
-        <SForm method="post">
-          <SUserIconImg
-            src={
-              user.profileImg
-                ? PUBLIC_FOLDER + user.profileImg
-                : PUBLIC_FOLDER + '/person/noAvatar.png'
-            }
-          />
+    <>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <Scenter>
+          <SLabel htmlFor="textForm">
+            <SForm method="post">
+              <SUserIconImg
+                src={
+                  user.profileImg
+                    ? PUBLIC_FOLDER + user.profileImg
+                    : PUBLIC_FOLDER + '/person/noAvatar.png'
+                }
+              />
 
-          <TextArea
-            placeholder="50文字以内で入力してください"
-            ref={desc}
-            onChange={(e) => textLimit(e)}
-            id="textForm"
-          ></TextArea>
-          {/* <input
+              <TextArea
+                placeholder="50文字以内で入力してください"
+                ref={desc}
+                onChange={(e) => textLimit(e)}
+                id="textForm"
+              ></TextArea>
+              {/* <input
           type="file"
           id="file"
           name="file"
           style={{ display: 'none' }}
           onChange={(e) => setFile(e.target.files[0])}
         /> */}
-          <SHr />
-          <SSubmit isText={isText} type="submit" onClick={(e) => textUpload(e)}>
-            送信
-          </SSubmit>
-        </SForm>
-      </SLabel>
-      <FooterAddPost />
-    </Scenter>
+              <SHr />
+              <SSubmit
+                isText={isText}
+                type="submit"
+                onClick={(e) => textUpload(e)}
+              >
+                送信
+              </SSubmit>
+            </SForm>
+          </SLabel>
+          <FooterAddPost />
+        </Scenter>
+      )}
+    </>
   );
 };
 const SUserIconImg = styled(UserIconImg)``;

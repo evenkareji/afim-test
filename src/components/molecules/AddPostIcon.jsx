@@ -3,9 +3,9 @@ import { Icon } from '../atoms/Icon';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import styled from 'styled-components';
-export const AddPostIcon = ({ toggleAddPost, isIcon, link }) => {
+export const AddPostIcon = ({ isIcon, link }) => {
   return (
-    <div onClick={toggleAddPost}>
+    <div>
       <Icon link={'/addpost'}>
         {isIcon ? (
           <AddBoxIcon style={{ width: '32', height: '32' }} />

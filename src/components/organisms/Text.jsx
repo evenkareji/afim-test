@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom';
 import { Comment } from '../pages/Comment';
 import { login } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+
 export const Text = ({ post }) => {
   const [user, setUser] = useState({});
-  // user(loginUser)が更新されないからフォローしても変更されない
 
   const loginUser = useSelector((state) => state.user.user);
 

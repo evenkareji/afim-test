@@ -16,7 +16,7 @@ export const FooterProfile = () => {
       {/* addpost */}
       <AddPostIcon />
       {/* プロフィール */}
-      <ProfileIcon isIcon={isProfileIcon} />
+      <ProfileIcon isIcon={isProfileIcon} style={{ width: '130px' }} />
     </SFooter>
   );
 };
