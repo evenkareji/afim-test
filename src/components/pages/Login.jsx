@@ -104,6 +104,7 @@ const SLoginBorder = styled.div`
   width: 100%;
   height: 100vh;
   height: -webkit-fill-available;
+
   border-radius: 0px;
   position: relative;
   background-color: #fff;
