@@ -52,6 +52,7 @@ export const UserIconWithName = ({ profileUser }) => {
           onChange={(e) => setFile(e.target.files[0])}
         />
       </SLabel>
+      <Smp>画像は変更できません</Smp>
       <SProfileUserName>{profileUser.username}</SProfileUserName>
     </div>
   );
@@ -92,6 +93,11 @@ const SPriofileImg = styled(UserIconImg)`
 const SProfileUserName = styled.div`
   font-weight: bold;
   font-size: 24px;
+  margin-bottom: 18px;
+  text-align: center;
+`;
+const Smp = styled.div`
+  color: #545454;
   margin-bottom: 18px;
   text-align: center;
 `;

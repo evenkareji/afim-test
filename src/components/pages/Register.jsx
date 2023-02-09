@@ -13,6 +13,7 @@ export const Register = () => {
   const password = useRef();
   const passwordConfirmation = useRef();
   const [isError, setIsError] = useState(false);
+  const [emailExist, setEmailExist] = useState(false);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ export const Register = () => {
         navigate('/login');
       } catch (err) {
         console.log(err);
+        setEmailExist(true);
       }
     }
   };
@@ -55,6 +57,15 @@ export const Register = () => {
             placeholder="メールアドレス *本物のメールアドレスは入力しないでください"
             ref={email}
           />
+          {emailExist ? (
+            <SEmailExist style={{ opacity: '1' }}>
+              そのメールアドレスは使用されています
+            </SEmailExist>
+          ) : (
+            <SEmailExist style={{ opacity: '0' }}>
+              そのメールアドレスは使用されています
+            </SEmailExist>
+          )}
           <SPassword type="password" placeholder="パスワード" ref={password} />
           <SPasswordConfirmation
             placeholder="確認用パスワード"
@@ -71,6 +82,7 @@ export const Register = () => {
               パスワードが一致しません
             </SErrorMessage>
           )}
+
           <SSubmit type="submit" formnovalidate>
             登録
           </SSubmit>
@@ -79,6 +91,11 @@ export const Register = () => {
     </SLoginBack>
   );
 };
+const SEmailExist = styled.p`
+  color: red;
+  font-size: 15px;
+  margin-top: -1px;
+`;
 const Sp = styled.p`
   color: red;
   font-size: 15px;
@@ -143,14 +160,12 @@ const SHead = styled.div`
   margin-bottom: 40px;
 `;
 const SName = styled(LoginForm)`
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 `;
-const SEmail = styled(LoginForm)`
-  margin-bottom: 14px;
-`;
+const SEmail = styled(LoginForm)``;
 
 const SPassword = styled(LoginForm)`
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 `;
 const SPasswordConfirmation = styled(LoginForm)`
   outline: ${({ isError }) => isError && '#ed0303 auto 2px'};
