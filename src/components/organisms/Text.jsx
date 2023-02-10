@@ -8,7 +8,7 @@ import { HeartIcon } from '../atoms/HeartIcon/HeartIcon';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Comment } from '../pages/Comment';
-import { login } from '../../features/userSlice';
+import { followEvent } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Text = ({ post }) => {
@@ -42,7 +42,7 @@ export const Text = ({ post }) => {
       const response = await axios.put(`/users/${post.userId}/unfollow`, {
         userId: loginUser._id,
       });
-      dispatch(login(response.data));
+      dispatch(followEvent(response.data));
     } catch (err) {
       console.log(err);
     }
@@ -53,7 +53,7 @@ export const Text = ({ post }) => {
         userId: loginUser._id,
       });
 
-      dispatch(login(response.data));
+      dispatch(followEvent(response.data));
     } catch (err) {
       console.log(err);
     }

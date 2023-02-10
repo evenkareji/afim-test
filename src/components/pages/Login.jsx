@@ -40,7 +40,6 @@ export const Login = () => {
         <SLoginBack>
           <SLoginBorder>
             <SForm onSubmit={(e) => handleSubmit(e)}>
-              <h4>進級展について感想を書き込もうぜい</h4>
               <SFormHead>AFim</SFormHead>
 
               <SEmail

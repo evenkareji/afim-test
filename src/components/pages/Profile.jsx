@@ -9,7 +9,6 @@ import { UserIconWithName } from '../molecules/UserIconWithName';
 import { FooterProfile } from '../templates/FooterProfile';
 import { FollowTab } from './FollowTab';
 import { useSelector } from 'react-redux';
-import { Spinner } from '../atoms/Spinner';
 
 export const Profile = () => {
   const [isToPage, setIsToPage] = useState(false);

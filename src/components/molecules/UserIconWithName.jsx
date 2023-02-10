@@ -6,6 +6,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 export const UserIconWithName = ({ profileUser }) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [file, setFile] = useState(null);
+  // 画像アップロード
   // useEffect(() => {
   //   if (file) {
   //     profileUpload();

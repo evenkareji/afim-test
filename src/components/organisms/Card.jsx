@@ -34,7 +34,7 @@ export const Card = ({ post }) => {
 
   return (
     <SCard key={post._id}>
-      {loginUser.username === username && <SDeleteIcon onClick={postDelete} />}
+      {/* {loginUser.username === username && <SDeleteIcon onClick={postDelete} />} */}
       <SProfileText key={post._id}>{post.desc}</SProfileText>
     </SCard>
   );
@@ -48,6 +48,7 @@ const SDeleteIcon = styled(DeleteIcon)`
 const SCard = styled.div`
   position: relative;
   background-color: #fff;
+  border-radius: 3px;
   border: 1px solid #dfdfdf;
   padding: 70px 16px;
   height: 250px;
