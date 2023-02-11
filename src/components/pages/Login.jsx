@@ -41,6 +41,8 @@ export const Login = () => {
           <SLoginBorder>
             <SForm onSubmit={(e) => handleSubmit(e)}>
               <SFormHead>AFim</SFormHead>
+              <p>メールアドレス：u@gmail.com</p>
+              <p>パスワード　　：123456</p>
 
               <SEmail
                 ref={email}

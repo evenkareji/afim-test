@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileCount } from '../molecules/ProfileCount';
 import { PersonalPost } from '../organisms/PersonalPost';
@@ -19,16 +19,14 @@ export const Profile = () => {
   const [profileUser, setProfileUser] = useState([]);
   const username = useParams().username;
   const location = useLocation();
-  const [isLoading, setIsLoading] = useState(false);
+
   const user = useSelector((state) => state.user.user);
   useEffect(() => {
-    setIsLoading(true);
     const getMyPost = async () => {
       const response = await axios.get(`/users?username=${username}`);
       setProfileUser(response.data);
     };
     getMyPost();
-    setIsLoading(false);
   }, [username]);
   useEffect(() => {
     setIsToPage(false);
