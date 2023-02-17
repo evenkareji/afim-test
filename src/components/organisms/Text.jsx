@@ -4,12 +4,12 @@ import { OnFollowBtn } from '../atoms/OnFollowBtn';
 import { UnFollowBtn } from '../atoms/UnFollowBtn';
 import ChatIcon from '@mui/icons-material/Chat';
 import { HeartIcon } from '../atoms/HeartIcon/HeartIcon';
-
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Comment } from '../pages/Comment';
 import { followEvent } from '../../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { IconButton } from '@mui/material';
 
 export const Text = ({ post }) => {
   const [user, setUser] = useState({});
@@ -71,7 +71,10 @@ export const Text = ({ post }) => {
 
   return (
     <PostBorder>
-      {/* <SImg src={next} alt="" /> */}
+      {post.img && (
+        <SImg src={`${PUBLIC_FOLDER}images/${post.img}`} alt="投稿画像" />
+      )}
+
       <SBg />
       <SPostContent>
         <SPostHeader>
@@ -88,7 +91,7 @@ export const Text = ({ post }) => {
             <SUserName>{user.username}</SUserName>
 
             {loginUser._id !== post.userId && (
-              <div>
+              <>
                 {loginUser.followings?.includes(post.userId) ? (
                   <OnFollowBtn handleUnFollow={handleUnFollow}>
                     フォロー中
@@ -98,7 +101,7 @@ export const Text = ({ post }) => {
                     フォロー
                   </UnFollowBtn>
                 )}
-              </div>
+              </>
             )}
           </Box>
         </SPostHeader>
@@ -115,10 +118,10 @@ export const Text = ({ post }) => {
           <HeartIcon isGood={isGood} />
         </SHeartBox>
         <HeartCount>{post.likes.length}</HeartCount>
-        {/* <IconButton onClick={modalComment}>
+        <IconButton onClick={modalComment}>
           <Chat sx={{ fontSize: 30 }} />
         </IconButton>
-        <ChatCount>{post.comment}</ChatCount> */}
+        <ChatCount>{post.comment}</ChatCount>
       </SAside>
       <Comment
         isCommentModal={isCommentModal}
@@ -214,8 +217,8 @@ const SBg = styled.div`
   object-fit: cover;
   background-color: #fafafa;
 `;
-// const SImg = styled.img`
-//   width: 100%;
-//   height: 100vh;
-//   object-fit: cover;
-// `;
+const SImg = styled.img`
+  height: 100vh;
+
+  object-fit: cover;
+`;

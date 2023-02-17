@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 // 画像アップロードAPI
 
 // pathはケバブケース
-router.post('/post-image', upload.single('file'), (req, res) => {
+router.post('/profile-image', upload.single('profileImage'), (req, res) => {
   try {
     console.log('成功');
     console.log(upload);

@@ -26,14 +26,14 @@ export const AddPost = () => {
 
     if (file) {
       const data = new FormData();
-      const fileName = Date.now + file.name;
+      const fileName = file.name;
       // 画像apiを叩く
 
       data.append('name', fileName);
       data.append('file', file);
       newPost.img = fileName;
       try {
-        await axios.post('/upload', data);
+        await axios.post('/upload/post-image', data);
       } catch (err) {
         console.log(err);
       }

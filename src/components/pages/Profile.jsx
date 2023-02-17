@@ -6,7 +6,6 @@ import { IconButton } from '@mui/material';
 import axios from 'axios';
 import { useLocation, useParams } from 'react-router-dom';
 import { UserIconWithName } from '../molecules/UserIconWithName';
-import { FooterProfile } from '../templates/FooterProfile';
 import { FollowTab } from './FollowTab';
 import { useSelector } from 'react-redux';
 
