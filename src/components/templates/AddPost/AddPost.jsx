@@ -14,38 +14,38 @@ export const AddPost = () => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [isText, setIsText] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  //   const newPost = {
-  //     userId: user._id,
-  //     desc: desc.current.value,
-  //   };
+    const newPost = {
+      userId: user._id,
+      desc: desc.current.value,
+    };
 
-  //   // if (file) {
-  //   //   const data = new FormData();
-  //   //   const fileName = Date.now + file.name;
-  //   //   // 画像apiを叩く
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now + file.name;
+      // 画像apiを叩く
 
-  //   //   data.append('name', fileName);
-  //   //   data.append('file', file);
-  //   //   newPost.img = fileName;
-  //   //   try {
-  //   //     await axios.post('/upload', data);
-  //   //   } catch (err) {
-  //   //     console.log(err);
-  //   //   }
-  //   // }
+      data.append('name', fileName);
+      data.append('file', file);
+      newPost.img = fileName;
+      try {
+        await axios.post('/upload', data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
-  //   try {
-  //     await axios.post('/posts', newPost);
-  //     window.location.reload();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+    try {
+      await axios.post('/posts', newPost);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const textUpload = async (e) => {
     e.preventDefault();
@@ -115,18 +115,18 @@ export const AddPost = () => {
                 onChange={(e) => textLimit(e)}
                 id="textForm"
               ></TextArea>
-              {/* <input
-          type="file"
-          id="file"
-          name="file"
-          style={{ display: 'none' }}
-          onChange={(e) => setFile(e.target.files[0])}
-        /> */}
+              <input
+                type="file"
+                id="file"
+                name="file"
+                // style={{ display: 'none' }}
+                onChange={(e) => setFile(e.target.files[0])}
+              />
               <SHr />
               <SSubmit
                 isText={isText}
                 type="submit"
-                onClick={(e) => textUpload(e)}
+                onClick={(e) => handleSubmit(e)}
               >
                 送信
               </SSubmit>
