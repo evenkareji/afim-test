@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Home } from '../molecules/Home';
 import { ProfileIcon } from '../molecules/ProfileIcon';
 import { AddPostIcon } from '../molecules/AddPostIcon';

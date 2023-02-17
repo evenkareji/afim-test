@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import { Text } from '../organisms/Text';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FooterHome } from '../templates/FooterHome';
 
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../features/userSlice';
-import { Spinner } from '../atoms/Spinner';
+
 export const Post = () => {
   const dispatch = useDispatch();
 
@@ -47,8 +46,6 @@ export const Post = () => {
           ))}
         </PostSlide>
       </PostBg>
-
-      <FooterHome />
     </SPostMain>
   );
 };
@@ -66,6 +63,13 @@ const SLogoutButton = styled.div`
 `;
 const SPostMain = styled.div`
   position: relative;
+  flex: 1;
+  @media (min-width: 768px) {
+    flex: 0.9;
+  }
+  @media (min-width: 1264px) {
+    flex: 0.8;
+  }
 `;
 const PostBg = styled.div`
   color: white;

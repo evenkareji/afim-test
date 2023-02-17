@@ -19,4 +19,12 @@ export const AddPostIcon = ({ isIcon, link }) => {
 };
 const SIconText = styled.small`
   font-weight: ${({ isIcon }) => (isIcon ? '800' : 'normal')};
+  flex: 1;
+  @media (min-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 1264px) {
+    margin-left: 30px !important;
+    display: block;
+  }
 `;

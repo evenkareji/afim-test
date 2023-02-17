@@ -24,8 +24,18 @@ export const ProfileIcon = ({ isIcon, changeIsIcon }) => {
 const SIconText = styled.small`
   font-weight: ${({ isIcon }) => (isIcon ? '800' : 'normal')};
   letter-spacing: -0.1em;
+
   @media (min-width: 432px) {
     letter-spacing: 0;
+  }
+  @media (min-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 1264px) {
+    margin-left: 30px !important;
+    width: 130px !important;
+
+    display: block;
   }
 `;
 
@@ -34,28 +44,6 @@ const SProfileIcon = styled(UserIconImg)`
   height: 32px;
   padding-left: 0;
   box-sizing: border-box;
+
   border: ${({ isIcon }) => (isIcon ? '2px solid #000' : 'none')};
 `;
-
-//  <div onClick={() => changeIsIcon('home')}>
-//    {/* <Icon link={`/profile/${user.username}`}>
-//         {isIcon ? (
-//           <HomeIcon style={{ width: '32', height: '32' }} />
-//         ) : (
-//           <HomeOutlinedIcon style={{ width: '32', height: '32' }} />
-//         )}
-//         <SIconText isIcon={isIcon}>ホーム</SIconText>
-//       </Icon>
-//     </div> */}
-//    <Icon link={`/profile/${user.username}`}>
-//      <SProfileIcon
-//        src={
-//          user.profileImg
-//            ? PUBLIC_FOLDER + user.profileImg
-//            : PUBLIC_FOLDER + 'person/noAvatar.png'
-//        }
-//        isIcon={isIcon}
-//      />
-//      <SIconText isIcon={isIcon}>プロフィール</SIconText>
-//    </Icon>
-//  </div>;

@@ -8,6 +8,9 @@ import { Profile } from './components/pages/Profile';
 import { AddPost } from './components/templates/AddPost/AddPost';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { AddPostInfo } from './components/pages/AddPostLayout';
+import { PostInfo } from './components/pages/PostInfo';
+import { ProfileLayout } from './components/pages/PrfileLayout';
 
 function App() {
   const user = useSelector((state) => state.user.user);
@@ -16,11 +19,11 @@ function App() {
   }, [user]);
   return (
     <Routes>
-      <Route path="/" element={user ? <Post /> : <Login />} />
-      <Route path="/profile/:username" element={<Profile />} />
+      <Route path="/" element={user ? <PostInfo /> : <Login />} />
+      <Route path="/profile/:username" element={<ProfileLayout />} />
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/addpost" element={<AddPost />} />
+      <Route path="/addpost" element={<AddPostInfo />} />
     </Routes>
   );
 }

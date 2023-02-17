@@ -7,7 +7,7 @@ import postRouter from './routes/post.mjs';
 import uploadRouter from './routes/upload.js';
 import commentRouter from './routes/comments.mjs';
 import path from 'path';
-import bodyParser from 'body-parser';
+
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);

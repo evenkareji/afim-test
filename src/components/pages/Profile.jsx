@@ -65,13 +65,21 @@ export const Profile = () => {
       <SPadding>
         <PersonalPost username={username} />
       </SPadding>
-      <FooterProfile username={username} />
     </SProfileBox>
   );
 };
 const SFollowTab = styled(FollowTab)``;
 const SProfileBox = styled.div`
   position: relative;
+
+  flex: 1;
+  @media (min-width: 768px) {
+    flex: 0.9;
+  }
+  @media (min-width: 1264px) {
+    flex: 0.8;
+  }
+
   background-color: #fafafa;
   height: 100%;
   width: 100%;

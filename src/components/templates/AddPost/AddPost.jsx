@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { TextArea } from '../../atoms/TextArea';
 import { UserIconImg } from '../../atoms/UserIconImg';
 
 import axios from 'axios';
-import { FooterAddPost } from '../FooterAddPost';
+
 import { useSelector } from 'react-redux';
 import { Spinner } from '../../atoms/Spinner';
 
@@ -94,7 +94,7 @@ export const AddPost = () => {
   };
 
   return (
-    <>
+    <SPostBox>
       {isLoading ? (
         <Spinner />
       ) : (
@@ -132,12 +132,22 @@ export const AddPost = () => {
               </SSubmit>
             </SForm>
           </SLabel>
-          <FooterAddPost />
+          {/* <FooterAddPost /> */}
         </Scenter>
       )}
-    </>
+    </SPostBox>
   );
 };
+
+const SPostBox = styled.div`
+  flex: 1;
+  @media (min-width: 768px) {
+    flex: 0.9;
+  }
+  @media (min-width: 1264px) {
+    flex: 0.8;
+  }
+`;
 const SUserIconImg = styled(UserIconImg)``;
 const SLabel = styled.label`
   display: block;

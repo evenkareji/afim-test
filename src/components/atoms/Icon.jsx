@@ -13,19 +13,27 @@ const SIconButton = styled(IconButton)`
   padding: 8px;
   text-decoration: none;
   font-size: inherit !important;
+  width: 160px;
+
   color: #fff;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  display: flex !important;
+  align-items: center !important;
   color: inherit !important;
-  border-radius: 0px !important;
-  @media (min-width: 425px) {
-    width: 120px;
+  border-radius: 22px !important;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+  }
+  @media (min-width: 1264px) {
+    /* justify-content: space-between !important; */
+    text-align: left !important;
+
+    flex-direction: row;
   }
 `;
 const SLink = styled(Link)`
   text-decoration: none;
-  padding: 0 8px 0 8px;
+
   color: #000;
   @media (min-width: 425px) {
   }
