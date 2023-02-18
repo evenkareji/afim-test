@@ -3,7 +3,7 @@ const multer = require('multer');
 
 const profileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'server/public/assets/person');
+    cb(null, 'build/assets/person');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -12,7 +12,7 @@ const profileStorage = multer.diskStorage({
 
 const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'server/public/assets/images');
+    cb(null, 'build/assets/images');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
