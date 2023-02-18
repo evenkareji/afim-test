@@ -12,7 +12,7 @@ export const CommentAddForm = () => {
     <SUserCommentBorder>
       <SUserImg src={PUBLIC_FOLDER + user.profileImg} />
       <SCommentContainer>
-        <STextArea placeholder="コメントを追加..."></STextArea>
+        <STextArea placeholder="コメント追加できません..."></STextArea>
       </SCommentContainer>
     </SUserCommentBorder>
   );

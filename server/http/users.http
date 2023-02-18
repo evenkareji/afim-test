@@ -14,12 +14,13 @@ GET http://localhost:8000/users/timeline/63bb8bc3e897a856a452cee2
 content-type: application/json
 
 ### 更新
-PUT http://localhost:3005/users/63bb8bc3e897a856a452cee2
+PUT http://localhost:3000/users/63e599a4a6fa77df84e9c188
 content-type: application/json
 
 {
- "userId":"63bb8bc3e897a856a452cee2",
- "desc":""
+ "userId":"63e599a4a6fa77df84e9c188",
+ "desc":"hello",
+ "profileImg":"person/ak.png"
 }
 
 

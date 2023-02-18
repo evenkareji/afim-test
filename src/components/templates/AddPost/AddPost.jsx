@@ -55,21 +55,6 @@ export const AddPost = () => {
       desc: desc.current.value,
     };
 
-    // if (file) {
-    //   const data = new FormData();
-    //   const fileName = Date.now + file.name;
-    //   // 画像apiを叩く
-
-    //   data.append('name', fileName);
-    //   data.append('file', file);
-    //   newPost.img = fileName;
-    //   try {
-    //     await axios.post('/upload', data);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
-
     try {
       await axios.post('/posts', newPost);
       window.location.reload();
@@ -104,7 +89,7 @@ export const AddPost = () => {
               <SUserIconImg
                 src={
                   user.profileImg
-                    ? PUBLIC_FOLDER + user.profileImg
+                    ? PUBLIC_FOLDER + '/person/' + user.profileImg
                     : PUBLIC_FOLDER + '/person/noAvatar.png'
                 }
               />

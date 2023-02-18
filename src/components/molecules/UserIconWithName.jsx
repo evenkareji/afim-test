@@ -3,52 +3,63 @@ import styled from 'styled-components';
 import { UserIconImg } from '../atoms/UserIconImg';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { followEvent } from '../../features/userSlice';
+
 export const UserIconWithName = ({ profileUser }) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   const [file, setFile] = useState(null);
+  const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user.user);
   useEffect(() => {
     if (file) {
       profileUpload();
     }
     async function profileUpload() {
-      let newProfileImg;
+      const newProfile = {
+        userId: user._id,
+      };
       try {
         const data = new FormData();
         const fileName = file.name;
-        data.append('file', file);
         data.append('name', fileName);
-        newProfileImg = { fileName };
+        data.append('profile_image', file);
+        newProfile.profileImg = fileName;
         console.log('実行');
-        await axios.post('/upload', data);
+
+        await axios.post('/upload/profile-image', data);
         console.log('実行完了');
       } catch (err) {
         console.log(err);
       }
 
       try {
-        await axios.post('/upload/profile-image', newProfileImg);
+        const response = await axios.put(`/users/${user._id}`, newProfile);
+        dispatch(followEvent(response.data));
+        window.location.reload();
       } catch (err) {
         console.log(err);
       }
     }
   }, [file]);
-  console.log(file, 'giuyegvuveug');
+
   return (
     <>
-      <SLabel htmlFor="profileImage">
+      <SLabel htmlFor="profile_image">
         <SPriofileImg
           src={
             profileUser.profileImg
-              ? PUBLIC_FOLDER + profileUser.profileImg
+              ? PUBLIC_FOLDER + '/person/' + profileUser.profileImg
               : PUBLIC_FOLDER + 'person/noAvatar.png'
           }
         />
         <SAddCircleIcon />
         <input
           type="file"
-          id="profileImage"
-          name="profileImage"
+          id="profile_image"
+          name="profile_image"
           style={{ display: 'none' }}
           onChange={(e) => setFile(e.target.files[0])}
         />

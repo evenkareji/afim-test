@@ -12,7 +12,7 @@ export const ProfileIcon = ({ isIcon, changeIsIcon }) => {
       <SProfileIcon
         src={
           user.profileImg
-            ? PUBLIC_FOLDER + user.profileImg
+            ? PUBLIC_FOLDER + '/person/' + user.profileImg
             : PUBLIC_FOLDER + 'person/noAvatar.png'
         }
         isIcon={isIcon}
@@ -32,9 +32,8 @@ const SIconText = styled.small`
     display: none;
   }
   @media (min-width: 1264px) {
+    width: 90px !important;
     margin-left: 30px !important;
-    width: 130px !important;
-
     display: block;
   }
 `;

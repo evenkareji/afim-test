@@ -45,12 +45,14 @@ router.get('/followers/:username', async (req, res) => {
 });
 // ユーザー更新
 router.put('/:id', async (req, res) => {
-  if (req.body.userId === req.params.id || req.body.isAdmin) {
+  let newInfo = await User.findById(req.body.userId);
+  if (req.body.userId === req.params.id) {
     try {
       const user = await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       });
-      res.status(200).json('ユーザー情報が更新されました');
+      const newInfo = await User.findById(req.body.userId);
+      return res.status(200).json(newInfo);
     } catch (err) {
       return res.status(500).json(err);
     }

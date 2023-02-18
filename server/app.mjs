@@ -5,7 +5,7 @@ import authRouter from './routes/auth.mjs';
 import userRouter from './routes/users.mjs';
 import postRouter from './routes/post.mjs';
 import uploadRouter from './routes/upload.js';
-import profileImageRouter from './routes/profileImage';
+// import profileImageRouter from './routes/profileImage';
 import commentRouter from './routes/comments.mjs';
 import path from 'path';
 
@@ -36,7 +36,6 @@ app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/posts', postRouter);
 app.use('/upload', uploadRouter);
-// app.use('/upload-profile', profileImageRouter);
 app.use('/comments', commentRouter);
 
 app.get('*', function (req, res) {

@@ -72,7 +72,7 @@ export const Text = ({ post }) => {
   return (
     <PostBorder>
       {post.img && (
-        <SImg src={`${PUBLIC_FOLDER}images/${post.img}`} alt="投稿画像" />
+        <SImg src={`${PUBLIC_FOLDER}images/${post.img}`} alt="投稿した画像" />
       )}
 
       <SBg />
@@ -82,7 +82,7 @@ export const Text = ({ post }) => {
             <SUserIconImg
               src={
                 user.profileImg
-                  ? PUBLIC_FOLDER + user.profileImg
+                  ? PUBLIC_FOLDER + '/person/' + user.profileImg
                   : PUBLIC_FOLDER + '/person/noAvatar.png'
               }
             />
@@ -168,6 +168,7 @@ const Box = styled.div`
 const SUserIconImg = styled.img`
   object-fit: cover;
   border-radius: 100%;
+  max-width: none;
   width: 52px;
   height: 52px;
   background-color: #fff;

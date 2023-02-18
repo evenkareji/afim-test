@@ -1,28 +1,41 @@
 const router = require('express').Router();
 const multer = require('multer');
 
-router.get('/', (req, res) => {
-  res.send('upload');
+const profileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'server/public/assets/person');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
 });
 
-const storage = multer.diskStorage({
+const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'server/public/assets/images');
   },
   filename: (req, file, cb) => {
-    // originalnameでエンコードエラー解決
     cb(null, file.originalname);
   },
 });
-// storageプロパティを設定しなければいけない
-const upload = multer({ storage: storage });
-// 画像アップロードAPI
 
-// pathはケバブケース
-router.post('/post-image', upload.single('file'), (req, res) => {
+const profileUpload = multer({ storage: profileStorage });
+router.post(
+  '/profile-image',
+  profileUpload.single('profile_image'),
+  (req, res) => {
+    try {
+      return res.status(200).json('アップロード成功しました');
+    } catch (err) {
+      console.log(err);
+    }
+  },
+);
+
+const imageUpload = multer({ storage: imageStorage });
+router.post('/post-image', imageUpload.single('file'), (req, res) => {
   try {
     console.log('成功');
-    console.log(upload);
     return res.status(200).json('アップロード成功しました');
   } catch (err) {
     console.log(err);
