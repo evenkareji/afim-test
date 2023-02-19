@@ -82,7 +82,7 @@ export const Text = ({ post }) => {
             <SUserIconImg
               src={
                 user.profileImg
-                  ? PUBLIC_FOLDER + '/person/' + user.profileImg
+                  ? PUBLIC_FOLDER + 'person/' + user.profileImg
                   : PUBLIC_FOLDER + '/person/noAvatar.png'
               }
             />

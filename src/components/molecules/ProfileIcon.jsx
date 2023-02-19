@@ -12,7 +12,7 @@ export const ProfileIcon = ({ isIcon, changeIsIcon }) => {
       <SProfileIcon
         src={
           user.profileImg
-            ? PUBLIC_FOLDER + '/person/' + user.profileImg
+            ? PUBLIC_FOLDER + 'person/' + user.profileImg
             : PUBLIC_FOLDER + 'person/noAvatar.png'
         }
         isIcon={isIcon}
