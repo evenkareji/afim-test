@@ -27,8 +27,8 @@ mongoose
   });
 // ミドルウェア
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', express.static('build'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 app.use('/users', userRouter);
