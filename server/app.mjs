@@ -5,7 +5,6 @@ import authRouter from './routes/auth.mjs';
 import userRouter from './routes/users.mjs';
 import postRouter from './routes/post.mjs';
 import uploadRouter from './routes/upload.js';
-// import profileImageRouter from './routes/profileImage';
 import commentRouter from './routes/comments.mjs';
 import path from 'path';
 
@@ -29,7 +28,7 @@ mongoose
 // ミドルウェア
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', express.static('build'));
+// app.use('/', express.static('build'));
 app.use(express.json());
 
 app.use('/users', userRouter);
