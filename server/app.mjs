@@ -28,6 +28,7 @@ mongoose
 // ミドルウェア
 
 app.use('/', express.static('build'));
+// 逆にした
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
