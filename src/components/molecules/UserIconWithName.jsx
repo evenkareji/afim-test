@@ -38,7 +38,7 @@ export const UserIconWithName = ({ profileUser }) => {
       try {
         const response = await axios.put(`/users/${user._id}`, newProfile);
         dispatch(followEvent(response.data));
-        window.location.reload();
+        // window.location.reload();
       } catch (err) {
         console.log(err);
       }

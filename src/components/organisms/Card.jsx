@@ -34,7 +34,7 @@ export const Card = ({ post }) => {
 
   return (
     <SCard key={post._id}>
-      {/* {loginUser.username === username && <SDeleteIcon onClick={postDelete} />} */}
+      {loginUser.username === username && <SDeleteIcon onClick={postDelete} />}
       <SProfileText key={post._id}>{post.desc}</SProfileText>
     </SCard>
   );
