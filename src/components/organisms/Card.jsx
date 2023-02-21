@@ -25,7 +25,7 @@ export const Card = ({ post }) => {
         await axios.delete(`/posts/${post._id}`, {
           data: { userId: loginUser._id },
         });
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
