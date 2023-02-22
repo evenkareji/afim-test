@@ -41,6 +41,7 @@ export const Login = () => {
           <SLoginBorder>
             <SForm onSubmit={(e) => handleSubmit(e)}>
               <SFormHead>クソアプリ</SFormHead>
+              <p>https://afim.onrender.com/</p>
 
               <SEmail
                 ref={email}
