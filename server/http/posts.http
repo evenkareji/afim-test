@@ -1,12 +1,22 @@
 
 ###投稿
-POST http://localhost:8000/api/posts/
+POST http://localhost:8000/posts/
 content-type: application/json
 
 {
 "userId":"63bab921f2674346eb311bd1",
   "desc":"I blieve in my soul!!"
 }
+
+
+###投稿検索
+GET http://localhost:8000/posts/search/e
+content-type: application/json
+
+
+
+
+
 ###全投稿
 GET http://localhost:8000/api/posts/
 content-type: application/json
@@ -31,7 +41,7 @@ content-type: application/json
 }
 
 ###投稿取得
-GET http://localhost:8000/api/posts/63bb95d8f2a1c4fb204a2cf2
+GET http://localhost:8000/posts/63bb95d8f2a1c4fb204a2cf2
 content-type: application/json
 
 {

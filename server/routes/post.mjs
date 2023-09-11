@@ -13,6 +13,20 @@ router.post('/', async (req, res) => {
     return res.status(500).json(err);
   }
 });
+
+// 投稿検索
+router.get('/search/:key', async (req, res) => {
+  try {
+    // $regex;は正規表現のためにある;
+    let data = await Post.find({
+      $or: [{ desc: { $regex: req.params.key } }],
+    });
+    res.send(data);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // 自分の全ての投稿
 router.get('/profile/:username', async (req, res) => {
   try {

@@ -6,6 +6,9 @@ import userRouter from './routes/users.mjs';
 import postRouter from './routes/post.mjs';
 import uploadRouter from './routes/upload.js';
 import commentRouter from './routes/comments.mjs';
+import conversationRouter from './routes/conversations.mjs';
+import messagesRouter from './routes/messages.mjs';
+
 import path from 'path';
 
 import { fileURLToPath } from 'url';
@@ -37,6 +40,8 @@ app.use('/auth', authRouter);
 app.use('/posts', postRouter);
 app.use('/upload', uploadRouter);
 app.use('/comments', commentRouter);
+app.use('/conversations', conversationRouter);
+app.use('/messages', messagesRouter);
 
 app.get('*', function (req, res) {
   const indexHtml = path.resolve('build', 'index.html');

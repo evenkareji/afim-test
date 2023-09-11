@@ -23,7 +23,7 @@ content-type: application/json
 
 
 ###ユーザーpass更新
-PUT http://localhost:3005/auth/register
+PUT http://localhost:3001/auth/register
 content-type: application/json
 
 {

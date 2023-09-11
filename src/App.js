@@ -3,7 +3,7 @@ import './App.css';
 import { Login } from './components/pages/Login';
 import { Register } from './components/pages/Register';
 import { Post } from './components/pages/Post';
-import { Profile } from './components/pages/Profile';
+import { Messanger } from './components/pages/messanger/Messanger';
 
 import { AddPost } from './components/templates/AddPost/AddPost';
 import { useSelector } from 'react-redux';
@@ -24,6 +24,7 @@ function App() {
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/addpost" element={<AddPostInfo />} />
+      <Route path="/messanger" element={<Messanger />} />
     </Routes>
   );
 }

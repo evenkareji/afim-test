@@ -1,10 +1,21 @@
 ###ユーザー取得
-GET http://localhost:3005/users/63bb8bc3e897a856a452cee2
+GET http://localhost:8000/users/63bb8bc3e897a856a452cee2
 content-type: application/json
 
 {
 
 }
+
+
+
+###ユーザー検索
+GET http://localhost:8000/users/search/先輩
+content-type: application/json
+
+{
+
+}
+
 
 ###全フォロー
 GET http://localhost:8000/users/time/63bb8bc3e897a856a452cee2

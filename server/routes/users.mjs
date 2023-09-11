@@ -13,6 +13,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.get('/search/:key', async (req, res) => {
+  try {
+    // $regex;は正規表現のためにある;
+    let data = await User.find({
+      $or: [{ username: { $regex: req.params.key } }],
+    });
+    res.send(data);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
 // フォローのユーザー情報
 router.get('/followings/:username', async (req, res) => {
   try {

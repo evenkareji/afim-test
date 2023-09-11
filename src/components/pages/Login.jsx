@@ -40,7 +40,7 @@ export const Login = () => {
         <SLoginBack>
           <SLoginBorder>
             <SForm onSubmit={(e) => handleSubmit(e)}>
-              <SFormHead>クソアプリ</SFormHead>
+              <SFormHead>クソNS</SFormHead>
               <p>https://afim.onrender.com/</p>
 
               <SEmail
