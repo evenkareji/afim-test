@@ -4,6 +4,8 @@ import Message from '../../message/Message';
 import './messanger.css';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import io from 'socket.io-client';
+
 export const Messanger = () => {
   const user = useSelector((state) => state.user.user);
   const [conversations, setConversations] = useState([]);
@@ -11,6 +13,21 @@ export const Messanger = () => {
   const [messages, setMessages] = useState();
   const [newMessage, setNewMessage] = useState('');
   const scrollBottomRef = useRef(null);
+  const port = 'ws://localhost:8900';
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io(port);
+    socket.current.emit('getUser', user._id);
+    socket.current.on('sendUser', (data) => {
+      console.log(data);
+    });
+
+    socket.current.on('getMessage', (data) => {
+      console.log(data);
+    });
+  }, []);
+
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -40,6 +57,20 @@ export const Messanger = () => {
       sender: user._id,
       text: newMessage,
     };
+    console.log(conversations);
+    const currentConversation = conversations.find(
+      (conversation) => conversation._id === currentChat,
+    );
+    const recieverId = currentConversation.members.find(
+      (member) => member !== user._id,
+    );
+
+    socket.current.emit('sendMessage', {
+      sender: user._id,
+      recieverId,
+      text: newMessage,
+    });
+
     try {
       const response = await axios.post('/messages', message);
       setMessages([...messages, response.data]);
@@ -75,7 +106,7 @@ export const Messanger = () => {
             <>
               <div className="chatBoxTop">
                 {messages.map((m) => (
-                  <div ref={scrollBottomRef}>
+                  <div key={m._id} ref={scrollBottomRef}>
                     <Message m={m} own={user._id === m.sender} />
                   </div>
                 ))}
