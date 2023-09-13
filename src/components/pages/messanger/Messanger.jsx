@@ -12,6 +12,7 @@ export const Messanger = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState();
   const [newMessage, setNewMessage] = useState('');
+  const [arrivalMessage, setArrivalMessage] = useState('');
   const scrollBottomRef = useRef(null);
   const port = 'ws://localhost:8900';
   const socket = useRef();
@@ -24,10 +25,20 @@ export const Messanger = () => {
     });
 
     socket.current.on('getMessage', (data) => {
-      console.log(data);
+      setArrivalMessage({
+        sender: data.sender,
+        text: data.text,
+        createdAt: Date.now(),
+      });
     });
   }, []);
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat.members?.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
 
+  console.log(arrivalMessage, 'arrival');
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -57,7 +68,7 @@ export const Messanger = () => {
       sender: user._id,
       text: newMessage,
     };
-    console.log(conversations);
+
     const currentConversation = conversations.find(
       (conversation) => conversation._id === currentChat,
     );
