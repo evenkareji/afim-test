@@ -10,7 +10,7 @@ export const FollowingsInfo = () => {
   useEffect(() => {
     const getFollowers = async () => {
       const response = await axios.get(`/users/followings/${user._id}`);
-
+      console.log(response.data, 'following');
       setFollowings(response.data);
     };
     getFollowers();

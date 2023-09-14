@@ -26,24 +26,29 @@ router.get('/search/:key', async (req, res) => {
 });
 
 // フォローのユーザー情報
-router.get('/followings/:username', async (req, res) => {
+router.get('/followings/:userId', async (req, res) => {
   try {
-    const currentUser = await User.findById(req.params.username);
+    const currentUser = await User.findById(req.params.userId);
     const followingUsers = await Promise.all(
       currentUser.followings.map((followingrId) => {
-        return User.find({ _id: followingrId });
+        return User.findById(followingrId);
       }),
     );
+    let friendList = [];
+    followingUsers.map((followingUser) => {
+      const { _id, username, profileImg } = followingUser;
+      friendList.push({ _id, username, profileImg });
+    });
 
-    return res.status(200).json(followingUsers);
+    return res.status(200).json(friendList);
   } catch (err) {
     return res.status(500).json(err);
   }
 });
 // フォロワーのユーザー情報
-router.get('/followers/:username', async (req, res) => {
+router.get('/followers/:userId', async (req, res) => {
   try {
-    const currentUser = await User.findById(req.params.username);
+    const currentUser = await User.findById(req.params.userId);
     const followUsers = await Promise.all(
       currentUser.followers.map((followerId) => {
         return User.find({ _id: followerId });

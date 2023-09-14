@@ -3,15 +3,12 @@
   display: flex;
 }
 .chatMenu {
-  border: 1px solid #000;
   flex: 3.5;
 }
 .chatBox {
   flex: 5.5;
-  border: 1px solid #000;
 }
 .chatOnline {
-  border: 1px solid #000;
   flex: 3;
 }
 

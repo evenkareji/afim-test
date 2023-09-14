@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Conversation from '../../conversations/Conversation';
 import Message from '../../message/Message';
+import ChatOnline from '../chatOnline/ChatOnline';
+
 import './messanger.css';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -13,6 +15,7 @@ export const Messanger = () => {
   const [messages, setMessages] = useState();
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState('');
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const scrollBottomRef = useRef(null);
   const port = 'ws://localhost:8900';
   const socket = useRef();
@@ -20,8 +23,16 @@ export const Messanger = () => {
   useEffect(() => {
     socket.current = io(port);
     socket.current.emit('getUser', user._id);
-    socket.current.on('sendUser', (data) => {
-      console.log(data);
+    socket.current.on('sendUser', (users) => {
+      console.log(users.map((user) => user.userId));
+      console.log(user.followings);
+
+      // 全てのアクセスユーザーからfollowしているユーザーのみ抽出
+      setOnlineUsers(
+        user.followings.filter((following) =>
+          users.find((user) => user.userId === following),
+        ),
+      );
     });
 
     socket.current.on('getMessage', (data) => {
@@ -32,13 +43,13 @@ export const Messanger = () => {
       });
     });
   }, []);
+  console.log(onlineUsers);
   useEffect(() => {
     arrivalMessage &&
       currentChat.members?.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  console.log(arrivalMessage, 'arrival');
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -50,29 +61,44 @@ export const Messanger = () => {
     };
     getConversations();
   }, []);
+  // useEffect(() => {
+  //   const getFriends = async () => {
+  //     const response = await axios.get(`/users/followings/${user._id}`);
+  //     const friends = response.data;
+  //     console.log(friends, 'friends');
+  //     console.log(onlineUsers, 'onlineUsers inside getFriends');
+  //     setOnlineUsers(
+  //       friends.filter((friend) =>
+  //         onlineUsers.find((onlineUser) => friend._id === onlineUser.userId),
+  //       ),
+  //     );
+  //     console.log(onlineUsers, 'filter');
+  //   };
+  //   getFriends();
+  // }, [setOnlineUsers, onlineUsers]);
 
-  const openMessage = async (conversationId) => {
-    try {
-      const response = await axios.get(`/messages/${conversationId}`);
-      setCurrentChat(conversationId);
-      setMessages(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  useEffect(() => {
+    const openMessage = async () => {
+      try {
+        const response = await axios.get(`/messages/${currentChat?._id}`);
+
+        setMessages(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    openMessage();
+  }, [currentChat]);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const message = {
-      conversationId: currentChat,
+      conversationId: currentChat._id,
       sender: user._id,
       text: newMessage,
     };
 
-    const currentConversation = conversations.find(
-      (conversation) => conversation._id === currentChat,
-    );
-    const recieverId = currentConversation.members.find(
+    const recieverId = currentChat.members.find(
       (member) => member !== user._id,
     );
 
@@ -97,6 +123,7 @@ export const Messanger = () => {
       });
     }
   }, [messages]);
+
   return (
     <div className="messanger">
       <div className="chatMenu">
@@ -104,7 +131,7 @@ export const Messanger = () => {
           {conversations.map((conversation) => (
             <div
               key={conversation._id}
-              onClick={() => openMessage(conversation._id)}
+              onClick={() => setCurrentChat(conversation)}
             >
               <Conversation conversation={conversation} loginUser={user} />
             </div>
@@ -140,7 +167,13 @@ export const Messanger = () => {
         </div>
       </div>
       <div className="chatOnline">
-        <div className="chatOnlineWrapper"></div>
+        <div className="chatOnlineWrapper">
+          <ChatOnline
+            setOnlineUsers={setOnlineUsers}
+            onlineUsers={onlineUsers}
+            loginUserId={user._id}
+          />
+        </div>
       </div>
     </div>
   );
