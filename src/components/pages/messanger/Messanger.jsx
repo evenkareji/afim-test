@@ -24,9 +24,6 @@ export const Messanger = () => {
     socket.current = io(port);
     socket.current.emit('getUser', user._id);
     socket.current.on('sendUser', (users) => {
-      console.log(users.map((user) => user.userId));
-      console.log(user.followings);
-
       // 全てのアクセスユーザーからfollowしているユーザーのみ抽出
       setOnlineUsers(
         user.followings.filter((following) =>
@@ -123,7 +120,7 @@ export const Messanger = () => {
       });
     }
   }, [messages]);
-
+  console.log(onlineUsers, 'online');
   return (
     <div className="messanger">
       <div className="chatMenu">
@@ -169,7 +166,7 @@ export const Messanger = () => {
       <div className="chatOnline">
         <div className="chatOnlineWrapper">
           <ChatOnline
-            setOnlineUsers={setOnlineUsers}
+            setCurrentChat={setCurrentChat}
             onlineUsers={onlineUsers}
             loginUserId={user._id}
           />
