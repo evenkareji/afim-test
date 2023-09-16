@@ -28,4 +28,15 @@ router.get('/:userId', async (req, res) => {
   }
 });
 
+router.get('/find/:loginUserId/:onlineFriend', async (req, res) => {
+  try {
+    const conversation = await Conversation.findOne({
+      members: { $all: [req.params.loginUserId, req.params.onlineFriend] },
+    });
+
+    res.status(200).json(conversation);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 export default router;
